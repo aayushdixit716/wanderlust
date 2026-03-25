@@ -1,0 +1,88 @@
+<% layout('layouts/boilerplate') %> <%= success %>
+<!-- here we have the success message when a new listing is created -->
+
+    <!-- <h2>All Listings</h2> -->
+    <!-- <form method="GET" action="/listings/new">
+        <button>create new listing</button>
+    </form> -->
+    <style>
+        .filters {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .filter i{
+            font-size: 24px;
+            margin-right: 8px;
+        }
+    </style>
+    <div class="filters">
+        <div class="filter">
+            <i class="fa-solid fa-fire"></i>
+            Trending
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-bed"></i>
+            Rooms
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-mountain-city"></i>
+            City
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-mountain"></i>
+            Hilly
+        </div>
+        <div class="filter">
+            <i class="fa-brands fa-fort-awesome"></i>
+            Villas
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-person-swimming"></i>
+            Swimming pools
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-campground"></i>
+            Campings
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-cow"></i>
+            Farms
+        </div>
+        <div class="tax-toggle">
+            <div class="form-check form-switch">
+            <label for="taxToggle">Show taxes in price</label>
+            <input type="checkbox" id="flexSwitchCheckDefault" class="form-check-input" role="switch">
+        </div>
+    </div>
+    </div>
+    
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for(let listing of allListings) { %>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+            <div class="card col listing-card" style="width: 18rem;">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image">
+                <div class="card-img-overlay"> </div>
+                <div class="card-body">
+                    <%= listing.title %><br/>
+                    &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+                    <i class="tax-info"> &nbsp; &nbsp; +18% GST</i>
+                </div>
+                </div>
+                </a>
+                <% } %>
+    </div>
+
+    <script>
+        let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+        taxSwitch.addEventListener("change", function() {
+            let taxInfoElements = document.querySelectorAll(".tax-info");
+            taxInfoElements.forEach(function(element) {
+                if (taxSwitch.checked) {
+                    element.style.display = "inline";
+                } else {
+                    element.style.display = "none";
+                }
+            });
+        });
+    </script>
