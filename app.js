@@ -91,11 +91,17 @@ app.set('views', path.join(__dirname, 'views'));
 // });
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
+
 app.use("/", Userroute);
 //     await sampleListings.save();
 //     console.log("Sample listing saved to database");
 //     res.send("successfully added sample listing to database");
 // });
+
+
 
 app.use( (req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));
