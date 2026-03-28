@@ -1,8 +1,4 @@
-if(process.env.NODE_ENV !== "production"){
-    require('dotenv').config();
-
-}
-
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -31,7 +27,7 @@ const User = require('./models/user');
 const store = MongoStore.create({
     mongoUrl: dburl,
     crypto: {
-        secret: process.env.SECRET
+        secret: process.env.SESSION_SECRET
     },
     touchAfter: 24 * 3600 // time period in seconds
 });
@@ -42,7 +38,7 @@ store.on("error", (err) => {
 });
 const sessionOptions = {
     store,
-    secret: process.env.SECRET,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
